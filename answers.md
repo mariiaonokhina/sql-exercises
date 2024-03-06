@@ -1,9 +1,4 @@
-
-  
-
 # SQL: Structured Query Language Exercise
-
-  
 
 ### Getting Started
 
@@ -22,43 +17,46 @@
 4. Make sure you add your query in between the triple tick marks.
 
 ---
-
-  
-
 # SQL: Structured Query Language Exercise
 
-  
-  
-
 For this section of the exercise we will be using the `bigquery-public-data.new_york_311.311_service_requests` table.
-
-  
 
 1. Write a query that tells us how many rows are in the table.
 
 ```sql
-
-[YOUR ANSWER HERE]
-
+SELECT
+  COUNT(*) as n_rows
+FROM
+  `bigquery-public-data.new_york_311.311_service_requests`
 ```
+Result: 27039784
 
-  
-
-2. Write a query that counts all of the records for just **your** zip code. (zipcode column is `incident_zip`) 
+2. Write a query that counts all of the records for just **your** zip code (11235). (zipcode column is `incident_zip`) 
 
 ```sql
-
-[YOUR ANSWER HERE]
-
-```  
+SELECT
+  COUNT(*) as num_incidents
+FROM
+  `bigquery-public-data.new_york_311.311_service_requests`
+WHERE
+  incident_zip = '11235'
+```
+Result: 227346
 
 2.2. Lets find out what the most common complaint_type there is in NYC. Write a query that counts all the records for each complaint_type. Hint.. you are going to have to do a group by.  Order them from highest to lowest. 
 
 ```sql
-
-[YOUR ANSWER HERE]
-
+SELECT
+  complaint_type,
+  COUNT(complaint_type) as num_complaints
+FROM
+  `bigquery-public-data.new_york_311.311_service_requests`
+GROUP BY
+  complaint_type
+ORDER BY
+  num_complaints DESC
 ```
+Result: Noise - Residential - 2540452 complaints
 
 3. For every agency, count how many _DISTINCT_ agency_names each one has. Hint you must use a group by for this as well. 
 
